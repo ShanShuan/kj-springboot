@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wonders.recorder.video.dao.FileDemoDao">
+
+	<sql id="commonWhere">
+		<if test="demoname != null and demoname.length != 0">
+			<![CDATA[ AND DEMONAME LIKE '%'||#{demoname}||'%']]>
+		</if>
+	</sql>
+
+	<sql id="commonColumn">
+		<![CDATA[
+			ID,
+			DEMONAME,
+			FILEPATH,
+			IFCOMPLETE,
+			FILESIZE,
+			WHOUPDATEID,
+			UPDATEDDATE,
+			WHOCREATEID,
+			CREATEDDATE,
+			WHOREMOVEID,
+			REMOVEDATE,
+			REMOVED
+		]]>
+	</sql>
+	<select id="getById" resultType="com.wonders.recorder.video.model.FileDemo">
+		<![CDATA[SELECT ]]><include refid="commonColumn"></include>
+		<![CDATA[FROM TAB_FILEDEMO WHERE ID = #{id}]]>
+	</select>
+	<select id="getByIdWithBlob" resultType="com.wonders.recorder.video.model.FileDemo">
+		<![CDATA[SELECT FILECONTENT,]]><include refid="commonColumn"></include>
+		<![CDATA[FROM TAB_FILEDEMO WHERE ID = #{id}]]>
+	</select>
+
+	<select id="ifexists" resultType="long">
+		<![CDATA[SELECT COUNT(1) FROM TAB_FILEDEMO WHERE ID = #{id}]]>
+	</select>
+
+	<select id="pageSelect" resultType="com.wonders.recorder.video.model.FileDemo">
+		<![CDATA[SELECT ]]><include refid="commonColumn"></include>
+		<![CDATA[FROM TAB_FILEDEMO WHERE 1=1]]>
+		<include refid="commonWhere"></include>
+	</select>
+
+	<select id="select" resultType="com.wonders.recorder.video.model.FileDemo">
+		<![CDATA[SELECT ]]><include refid="commonColumn"></include>
+		<![CDATA[FROM TAB_FILEDEMO WHERE 1=1]]>
+		<include refid="commonWhere"></include>
+	</select>
+
+	<insert id="save" parameterType="com.wonders.recorder.video.model.FileDemo">
+		<![CDATA[ INSERT INTO TAB_FILEDEMO (
+			ID,
+			DEMONAME,
+			FILEPATH,
+			IFCOMPLETE,
+			FILESIZE,
+			CREATEDDATE,
+			WHOCREATEID,
+			REMOVED
+		) VALUES (
+			#{id, jdbcType=VARCHAR},
+			#{demoname, jdbcType=VARCHAR},
+			#{filepath, jdbcType=VARCHAR},
+			#{ifcomplete, jdbcType=NUMERIC},
+			#{filesize, jdbcType=NUMERIC},
+			#{createddate, jdbcType=DATE},
+			#{whocreateid, jdbcType=VARCHAR},
+			'0'
+		)]]>
+	</insert>
+
+	<update id="update" parameterType="com.wonders.recorder.video.model.FileDemo">
+		<![CDATA[ UPDATE TAB_FILEDEMO ]]>
+		<set>
+			<if test="demoname != null"><![CDATA[ DEMONAME = #{demoname, jdbcType=VARCHAR}, ]]></if>
+			<if test="filepath != null"><![CDATA[ FILEPATH = #{filepath, jdbcType=VARCHAR}, ]]></if>
+			<if test="ifcomplete != null"><![CDATA[ IFCOMPLETE = #{ifcomplete, jdbcType=NUMERIC}, ]]></if>
+			<if test="filesize != null"><![CDATA[ FILESIZE = #{filesize, jdbcType=NUMERIC}, ]]></if>
+			<![CDATA[ UPDATEDDATE = #{updateddate}, ]]>
+			<![CDATA[ WHOUPDATEID = #{whoupdateid}, ]]>
+			<![CDATA[ REMOVED='0']]>
+		</set>
+		<![CDATA[ WHERE ID = #{id}]]>
+	</update>
+
+	<delete id="delete" parameterType="java.lang.String">
+		<![CDATA[ DELETE FROM TAB_FILEDEMO WHERE ID = #{id}]]>
+	</delete>
+</mapper>

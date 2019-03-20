@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wonders.sys.user.dao.LoginTimesDao">
+	<insert id="save" parameterType="com.wonders.sys.user.model.LoginTimes">
+		<![CDATA[INSERT INTO SSO_LOGINTIMES (
+			USERNAME,
+			IEIP,
+			LOGINDATE
+		) VALUES (
+			#{username},
+			#{ieip},
+			#{logindate}
+		)]]>
+	</insert>
+
+	<select id="findLoginTimesByHours" resultType="int">
+		<![CDATA[ SELECT COUNT(1) FROM SSO_LOGINTIMES LT
+		 WHERE LT.USERNAME=#{username}
+		 	AND LT.LOGINDATE BETWEEN #{startDate} AND #{endDate} ]]>
+	</select>
+
+	<select id="findLoginTimesByDays" resultType="int">
+		<![CDATA[SELECT COUNT(1) FROM SSO_LOGINTIMES LT
+		 WHERE LT.USERNAME=#{username}
+		 	AND LT.LOGINDATE BETWEEN #{startDate} AND #{endDate}]]>
+	</select>
+</mapper>

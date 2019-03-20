@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wonders.sys.user.dao.UserSessionDao">
+	<sql id="commonColumn">
+		<![CDATA[
+			ID,
+			USERNAME,
+			IEIP,
+			TGC,
+			LOGINDATE
+		]]>
+	</sql>
+
+	<insert id="save"
+		parameterType="com.wonders.sys.user.model.UserSession">
+		<![CDATA[ INSERT INTO SSO_USERSESSION (
+			ID,
+			USERNAME,
+			IEIP,
+			TGC,
+			LOGINDATE
+		) VALUES (
+			SSO_USERSESSIONSEQ.NEXTVAL,
+			#{username, jdbcType=VARCHAR},
+			#{ieip, jdbcType=VARCHAR},
+			#{tgc, jdbcType=VARCHAR},
+			#{logindate, jdbcType=DATE}
+		)]]>
+	</insert>
+
+	<delete id="delete" parameterType="java.lang.String">
+		<![CDATA[ DELETE FROM SSO_USERSESSION WHERE ID=#{id} ]]>
+	</delete>
+
+	<delete id="deleteUserSessionByUsername" parameterType="java.lang.String">
+		<![CDATA[ DELETE FROM SSO_USERSESSION WHERE USERNAME=#{username} AND TGC LIKE 'TGC-NEW-%' ]]>
+	</delete>
+
+	<delete id="deleteUserSessionInvalid" >
+		<![CDATA[ DELETE FROM SSO_USERSESSION WHERE TGC LIKE 'TGC-NEW-%' AND LOGINDATE<TRUNC(SYSDATE) ]]>
+	</delete>
+
+	<select id="getUserSessionByUsername"
+		resultType="com.wonders.sys.user.model.UserSession"
+		parameterType="java.lang.String">
+		<![CDATA[ SELECT ]]><include refid="commonColumn"></include>
+		<![CDATA[ FROM SSO_USERSESSION WHERE USERNAME=#{username} AND TGC LIKE 'TGC-NEW-%']]>
+	</select>
+
+	<select id="getUserSessionByTGC"
+		resultType="com.wonders.sys.user.model.UserSession"
+		parameterType="java.lang.String">
+		<![CDATA[ SELECT ]]><include refid="commonColumn"></include>
+		<![CDATA[ FROM SSO_USERSESSION WHERE TGC=#{tgc} ]]>
+	</select>
+
+	
+</mapper>

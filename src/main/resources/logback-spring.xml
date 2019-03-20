@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<include
+		resource="org/springframework/boot/logging/logback/base.xml" />
+	<!-- 属性文件 -->
+	<property name="logDir" value="./logs" />
+
+	<!-- 默认的控制台日志输出，一般生产环境都是后台启动，这个没太大作用 -->
+	<appender name="stdout"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%date [%thread] %-5level %logger{50}:%L - %msg%n</pattern>
+		</layout>
+	</appender>
+
+	<!-- 配置文件轮转 -->
+	<appender name="logfile"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${logDir}/mainapp.log</File>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${logDir}/history/service.%d{yyyy-MM-dd}.log.gz</FileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%date [%thread] %-5level %logger{50}:%L - %msg%n</pattern>
+		</layout>
+	</appender>
+
+	<logger name="org.springframework.web" level="INFO"
+		additivity="false">
+		<appender-ref ref="stdout" />
+		<appender-ref ref="logfile" />
+	</logger>
+
+	<logger name="org.springboot.sample" level="TRACE">
+		<appender-ref ref="stdout" />
+		<appender-ref ref="logfile" />
+	</logger>
+
+	<logger name="com.wonders" level="DEBUG">
+		<appender-ref ref="stdout" />
+		<appender-ref ref="logfile" />
+	</logger>
+</configuration>

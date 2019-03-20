@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wonders.sys.user.dao.ErrorLoginTimesDao">
+
+	<sql id="commonColumn">
+		<![CDATA[
+			ID,
+			LOGINNAME,
+			IEIP,
+			LOGINDATE,
+			ERRORLOGINTIMES
+		]]>
+	</sql>
+
+	<insert id="save"
+		parameterType="com.wonders.sys.user.model.ErrorLoginTimes">
+		<![CDATA[ INSERT INTO SSO_ERRORLOGINTIMES (
+			ID,
+			LOGINNAME,
+			IEIP,
+			LOGINDATE,
+			ERRORLOGINTIMES
+		) VALUES (
+			SSO_ERRORLOGINTIMESSEQ.NEXTVAL,
+			#{loginname},
+			#{ieip},
+			#{logindate},
+			#{errorlogintimes}
+		)]]>
+	</insert>
+
+	<update id="update" parameterType="com.wonders.sys.user.model.ErrorLoginTimes">
+		<![CDATA[ UPDATE SSO_ERRORLOGINTIMES SET
+			IEIP=#{ieip},
+			LOGINDATE=#{logindate},
+			ERRORLOGINTIMES=#{errorlogintimes}
+		WHERE
+			LOGINNAME=#{loginname}
+		]]>
+	</update>
+
+	<delete id="deleteBeforeByLoginname" parameterType="java.lang.String">
+		<![CDATA[ DELETE FROM SSO_ERRORLOGINTIMES WHERE LOGINNAME = #{loginname} AND LOGINDATE<TRUNC(SYSDATE)]]>
+	</delete>
+
+	<select id="getByLoginname" parameterType="string"
+		resultType="com.wonders.sys.user.model.ErrorLoginTimes">
+		<![CDATA[ SELECT ]]><include refid="commonColumn"></include>
+		<![CDATA[ FROM SSO_ERRORLOGINTIMES
+			WHERE LOGINNAME=#{loginname}
+			  AND TRUNC(LOGINDATE)=TRUNC(SYSDATE)]]>
+	</select>
+</mapper>

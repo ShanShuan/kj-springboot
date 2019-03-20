@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wonders.hlthspv.demo.dao.DemoDao">
+
+	<sql id="commonWhere">
+		<if test="demoname != null and demoname.length != 0">
+			<![CDATA[ AND DEMONAME LIKE '%'||#{demoname}||'%']]>
+		</if>
+	</sql>
+
+	<select id="getById" resultType="com.wonders.hlthspv.demo.model.Demo" parameterType="string">
+		<![CDATA[SELECT * FROM TAB_DEMO WHERE ID = #{id}]]>
+	</select>
+
+	<select id="ifexists" resultType="long" parameterType="com.wonders.hlthspv.demo.model.Demo">
+		<![CDATA[SELECT COUNT(1) FROM TAB_DEMO WHERE ID = #{id}]]>
+	</select>
+
+	<select id="pageSelect" resultType="com.wonders.hlthspv.demo.model.Demo">
+		<![CDATA[SELECT * FROM TAB_DEMO WHERE 1=1]]>
+		<include refid="commonWhere"></include>
+	</select>
+
+	<select id="select" resultType="com.wonders.hlthspv.demo.model.Demo">
+		<![CDATA[SELECT * FROM TAB_DEMO WHERE 1=1]]>
+		<include refid="commonWhere"></include>
+	</select>
+
+	<insert id="save" parameterType="com.wonders.hlthspv.demo.model.Demo">
+		<![CDATA[ INSERT INTO TAB_DEMO (
+			ID, 
+			DEMONAME, 
+			DEMODATE, 
+			CREATEDDATE,
+			WHOCREATEID,
+			REMOVED
+		) VALUES (
+			#{id}, 
+			#{demoname}, 
+			#{demoDate}, 
+			#{createddate},
+			#{whocreateid},
+			'0'
+		)]]>
+	</insert>
+
+	<update id="update" parameterType="com.wonders.hlthspv.demo.model.Demo">
+		<![CDATA[ UPDATE TAB_DEMO ]]>
+		<set>
+			<if test="demoname != null"><![CDATA[ DEMONAME = #{demoname}, ]]></if>
+			<if test="demodate != null"><![CDATA[ DEMODATE = #{demoDate}, ]]></if>
+			<![CDATA[ UPDATEDDATE = #{updateddate}, ]]>
+			<![CDATA[ WHOUPDATEID = #{whoupdateid}, ]]>
+			<![CDATA[ REMOVED='0']]>
+		</set>
+		<![CDATA[ WHERE ID = #{id}]]>
+	</update>
+
+	<delete id="delete" parameterType="java.lang.String">
+		<![CDATA[ DELETE FROM TAB_DEMO WHERE ID = #{id}]]>
+	</delete>
+</mapper>

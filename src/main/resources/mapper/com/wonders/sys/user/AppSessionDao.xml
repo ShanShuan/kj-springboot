@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wonders.sys.user.dao.AppSessionDao">
+	<sql id="commonColumn">
+		<![CDATA[
+			ID,
+			USERNAME,
+			IEIP,
+			IEURL,
+			LOGOUTURL,
+			LOGINDATE,
+			TGC,
+			ST
+		]]>
+	</sql>
+	<insert id="save"
+		parameterType="com.wonders.sys.user.model.AppSession">
+		<![CDATA[ INSERT INTO SSO_APPSESSION (
+			ID,
+			USERNAME,
+			IEIP,
+			IEURL,
+			LOGOUTURL,
+			LOGINDATE,
+			TGC,
+			ST
+		) VALUES (
+			#{id, jdbcType=NUMERIC},
+			#{username, jdbcType=VARCHAR},
+			#{ieip, jdbcType=VARCHAR},
+			#{ieurl, jdbcType=VARCHAR},
+			#{logouturl, jdbcType=VARCHAR},
+			#{logindate, jdbcType=DATE},
+			#{tgc, jdbcType=VARCHAR},
+			#{st, jdbcType=VARCHAR}
+		)]]>
+	</insert>
+
+	<delete id="delete" parameterType="java.lang.String">
+		<![CDATA[ DELETE FROM SSO_APPSESSION WHERE ID=#{id}]]>
+	</delete>
+
+	<delete id="deleteAppByUsername" parameterType="com.wonders.sys.user.model.AppSession">
+		<![CDATA[ DELETE FROM SSO_APPSESSION WHERE USERNAME=#{username} AND TGC=#{tgc}]]>
+	</delete>
+
+	<select id="getAppSessionByTGC" resultType="com.wonders.sys.user.model.AppSession" parameterType="string">
+		<![CDATA[ SELECT ]]><include refid="commonColumn"></include>
+		<![CDATA[ FROM SSO_APPSESSION WHERE TGC=#{tgc} ]]>
+	</select>
+
+	<select id="getAppSessionByST" resultType="com.wonders.sys.user.model.AppSession" parameterType="string">
+		<![CDATA[ SELECT ]]><include refid="commonColumn"></include>
+		<![CDATA[ FROM SSO_APPSESSION WHERE ST=#{st} ]]>
+	</select>
+
+	<select id="getAppSessionByUsername" resultType="com.wonders.sys.user.model.AppSession" parameterType="com.wonders.sys.user.model.AppSession">
+		<![CDATA[ SELECT ]]><include refid="commonColumn"></include>
+		<![CDATA[ FROM SSO_APPSESSION WHERE USERNAME=#{username} AND TGC=#{tgc} ]]>
+	</select>
+</mapper>

@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wonders.sys.user.dao.LoginUserDao">
+	<resultMap id="LoginUserResult" type="com.wonders.sys.user.model.LoginUser">
+		<result column="ID" property="id"/>
+		<result column="SECTIONID" property="sectionid"/>
+		<result column="ORGID" property="orgid"/>
+		<result column="STUFFID" property="stuffid"/>
+		<result column="DESCRIPTION" property="description"/>
+		<result column="EXT5" property="ext5"/>
+		<result column="EXT6" property="ext6"/>
+		<result column="EXT7" property="ext7"/>
+		<result column="EXT8" property="ext8"/>
+		<result column="EMAIL" property="email"/>
+		<result column="ADDRESS" property="address"/>
+		<result column="MOBILE1" property="mobile1"/>
+		<result column="MOBILE2" property="mobile2"/>
+		<result column="FAX" property="fax"/>
+		<result column="HOME_PHONE" property="home_phone"/>
+		<result column="OFFICE_PHONE" property="office_phone"/>
+		<result column="AUTHENTIC_TYPE" property="authentic_type"/>
+		<result column="CERTIFICATE" property="certificate"/>
+		<result column="STATUS" property="status"/>
+		<result column="LOGIN_NAME" property="login_name"/>
+		<result column="NAME" property="name"/>
+		<result column="SEX" property="sex"/>
+		<result column="PASSWORD" property="password"/>
+		<result column="USERTYPE" property="usertype"/>
+		<result column="ACCOUNTTYPE" property="accounttype"/>
+		<result column="OPERATE_TIME" property="operate_time"/>
+		<result column="OPERATOR" property="operator"/>
+		<result column="REMOVED" property="removed"/>
+		<result column="ORGNAME" property="orgname"/>
+		<result column="STUFFNAME" property="stuffname"/>
+		<result column="SECTIONNAME" property="sectionname"/>
+		<result column="DIVCODE" property="divcode"/>
+		<result column="OPERATORCODE" property="operatorcode"/>
+		<result column="ORGNO" property="orgno"/>
+		<result column="REMOVEDATE" property="removedate"/>
+		<result column="WHOREMOVEID" property="whoremoveid"/>
+		<result column="CREATEDDATE" property="createddate"/>
+		<result column="WHOCREATEID" property="whocreateid"/>
+		<result column="UPDATEDDATE" property="updateddate"/>
+		<result column="WHOUPDATEID" property="whoupdateid"/>
+		<result column="EXPIREDATE" property="expiredate"/>
+		<result column="POSITION" property="position"/>
+		<result column="SETSTATE" property="setstate"/>
+		<result column="EXT3" property="ext3"/>
+		<result column="EXT2" property="ext2"/>
+		<result column="EXT1" property="ext1"/>
+		<result column="ORGIDS" property="orgids"/>
+		<result column="IFPRINCIPAL" property="ifprincipal"/>
+		<result column="ORGCODE" property="orgcode"/>
+		<result column="AREACODE" property="areacode"/>
+		<result column="PERTYPE" property="pertype"/>
+		<result column="HEALTHCARDNO" property="healthcardno"/>
+		<result column="EXT4" property="ext4"/>
+		<result column="IFSUB" property="ifsub"/>
+	</resultMap>
+	<sql id="commonWhere">
+	</sql>
+	<sql id="commonColumn">
+		<![CDATA[
+			ID,
+			SECTIONID,
+			ORGID,
+			STUFFID,
+			DESCRIPTION,
+			EXT5,
+			EXT6,
+			EXT7,
+			EXT8,
+			EMAIL,
+			ADDRESS,
+			MOBILE1,
+			MOBILE2,
+			FAX,
+			HOME_PHONE,
+			OFFICE_PHONE,
+			AUTHENTIC_TYPE,
+			CERTIFICATE,
+			STATUS,
+			LOGIN_NAME,
+			NAME,
+			SEX,
+			PASSWORD,
+			USERTYPE,
+			ACCOUNTTYPE,
+			OPERATE_TIME,
+			OPERATOR,
+			REMOVED,
+			ORGNAME,
+			STUFFNAME,
+			SECTIONNAME,
+			DIVCODE,
+			OPERATORCODE,
+			ORGNO,
+			REMOVEDATE,
+			WHOREMOVEID,
+			CREATEDDATE,
+			WHOCREATEID,
+			UPDATEDDATE,
+			WHOUPDATEID,
+			EXPIREDATE,
+			POSITION,
+			SETSTATE,
+			EXT3,
+			EXT2,
+			EXT1,
+			ORGIDS,
+			IFPRINCIPAL,
+			ORGCODE,
+			AREACODE,
+			PERTYPE,
+			HEALTHCARDNO,
+			EXT4,
+			IFSUB
+		]]>
+	</sql>
+
+	<select id="getById" parameterType="string" resultMap="LoginUserResult">
+		<![CDATA[SELECT ]]><include refid="commonColumn"></include>
+		<![CDATA[ FROM SC_USER WHERE ID = #{id}]]>
+	</select>
+
+	<select id="ifexists" resultType="long" parameterType="com.wonders.sys.user.model.LoginUser">
+		<![CDATA[ SELECT COUNT(1) FROM SC_USER WHERE ID = #{id} ]]>
+	</select>
+
+	<select id="pageSelect" resultMap="LoginUserResult">
+		<![CDATA[SELECT ]]><include refid="commonColumn"></include>
+		<![CDATA[ FROM SC_USER WHERE 1=1]]>
+		<include refid="commonWhere"></include>
+	</select>
+
+	<select id="select" resultMap="LoginUserResult">
+		<![CDATA[SELECT ]]><include refid="commonColumn"></include>
+		<![CDATA[ FROM SC_USER WHERE 1=1]]>
+		<include refid="commonWhere"></include>
+	</select>
+
+	<insert id="save"
+		parameterType="com.wonders.sys.user.model.LoginUser">
+		<![CDATA[ INSERT INTO SC_USER (
+			ID,
+			CREATEDDATE,
+			WHOCREATEID,
+			REMOVED,
+
+			SECTIONID,
+			ORGID,
+			STUFFID,
+			DESCRIPTION,
+			EXT5,
+			EXT6,
+			EXT7,
+			EXT8,
+			EMAIL,
+			ADDRESS,
+			MOBILE1,
+			MOBILE2,
+			FAX,
+			HOME_PHONE,
+			OFFICE_PHONE,
+			AUTHENTIC_TYPE,
+			CERTIFICATE,
+			STATUS,
+			LOGIN_NAME,
+			NAME,
+			SEX,
+			PASSWORD,
+			USERTYPE,
+			ACCOUNTTYPE,
+			OPERATE_TIME,
+			OPERATOR,
+			ORGNAME,
+			STUFFNAME,
+			SECTIONNAME,
+			DIVCODE,
+			OPERATORCODE,
+			ORGNO,
+			EXPIREDATE,
+			POSITION,
+			SETSTATE,
+			EXT3,
+			EXT2,
+			EXT1,
+			ORGIDS,
+			IFPRINCIPAL,
+			ORGCODE,
+			AREACODE,
+			PERTYPE,
+			HEALTHCARDNO,
+			EXT4,
+			IFSUB
+		) VALUES (
+			#{id,jdbcType=NUMERIC}, 
+			#{createddate, jdbcType=DATE},
+			#{whocreateid, jdbcType=VARCHAR},
+			'0',
+
+			#{sectionid, jdbcType=VARCHAR},
+			#{orgid, jdbcType=VARCHAR},
+			#{stuffid, jdbcType=VARCHAR},
+			#{description, jdbcType=VARCHAR},
+			#{ext5, jdbcType=VARCHAR},
+			#{ext6, jdbcType=VARCHAR},
+			#{ext7, jdbcType=VARCHAR},
+			#{ext8, jdbcType=VARCHAR},
+			#{email, jdbcType=VARCHAR},
+			#{address, jdbcType=VARCHAR},
+			#{mobile1, jdbcType=VARCHAR},
+			#{mobile2, jdbcType=VARCHAR},
+			#{fax, jdbcType=VARCHAR},
+			#{home_phone, jdbcType=VARCHAR},
+			#{office_phone, jdbcType=VARCHAR},
+			#{authentic_type, jdbcType=NUMERIC},
+			#{certificate, jdbcType=VARCHAR},
+			#{status, jdbcType=NUMERIC},
+			#{login_name, jdbcType=VARCHAR},
+			#{name, jdbcType=VARCHAR},
+			#{sex, jdbcType=VARCHAR},
+			#{password, jdbcType=VARCHAR},
+			#{usertype, jdbcType=NUMERIC},
+			#{accounttype, jdbcType=NUMERIC},
+			#{operate_time, jdbcType=NUMERIC},
+			#{operator, jdbcType=VARCHAR},
+			#{orgname, jdbcType=VARCHAR},
+			#{stuffname, jdbcType=VARCHAR},
+			#{sectionname, jdbcType=VARCHAR},
+			#{divcode, jdbcType=VARCHAR},
+			#{operatorcode, jdbcType=VARCHAR},
+			#{orgno, jdbcType=VARCHAR},
+			#{expiredate, jdbcType=DATE},
+			#{position, jdbcType=NUMERIC},
+			#{setstate, jdbcType=VARCHAR},
+			#{ext3, jdbcType=VARCHAR},
+			#{ext2, jdbcType=VARCHAR},
+			#{ext1, jdbcType=VARCHAR},
+			#{orgids, jdbcType=VARCHAR},
+			#{ifprincipal, jdbcType=VARCHAR},
+			#{orgcode, jdbcType=VARCHAR},
+			#{areacode, jdbcType=VARCHAR},
+			#{pertype, jdbcType=VARCHAR},
+			#{healthcardno, jdbcType=VARCHAR},
+			#{ext4, jdbcType=VARCHAR},
+			#{ifsub, jdbcType=VARCHAR}
+		)]]>
+	</insert>
+
+	<update id="update"
+		parameterType="com.wonders.sys.user.model.LoginUser">
+		<![CDATA[ UPDATE SC_USER ]]>
+		<set>
+			<if test="sectionid != null"><![CDATA[ SECTIONID = #{sectionid, jdbcType=VARCHAR}, ]]></if>
+			<if test="orgid != null"><![CDATA[ ORGID = #{orgid, jdbcType=VARCHAR}, ]]></if>
+			<if test="stuffid != null"><![CDATA[ STUFFID = #{stuffid, jdbcType=VARCHAR}, ]]></if>
+			<if test="description != null"><![CDATA[ DESCRIPTION = #{description, jdbcType=VARCHAR}, ]]></if>
+			<if test="ext5 != null"><![CDATA[ EXT5 = #{ext5, jdbcType=VARCHAR}, ]]></if>
+			<if test="ext6 != null"><![CDATA[ EXT6 = #{ext6, jdbcType=VARCHAR}, ]]></if>
+			<if test="ext7 != null"><![CDATA[ EXT7 = #{ext7, jdbcType=VARCHAR}, ]]></if>
+			<if test="ext8 != null"><![CDATA[ EXT8 = #{ext8, jdbcType=VARCHAR}, ]]></if>
+			<if test="email != null"><![CDATA[ EMAIL = #{email, jdbcType=VARCHAR}, ]]></if>
+			<if test="address != null"><![CDATA[ ADDRESS = #{address, jdbcType=VARCHAR}, ]]></if>
+			<if test="mobile1 != null"><![CDATA[ MOBILE1 = #{mobile1, jdbcType=VARCHAR}, ]]></if>
+			<if test="mobile2 != null"><![CDATA[ MOBILE2 = #{mobile2, jdbcType=VARCHAR}, ]]></if>
+			<if test="fax != null"><![CDATA[ FAX = #{fax, jdbcType=VARCHAR}, ]]></if>
+			<if test="home_phone != null"><![CDATA[ HOME_PHONE = #{home_phone, jdbcType=VARCHAR}, ]]></if>
+			<if test="office_phone != null"><![CDATA[ OFFICE_PHONE = #{office_phone, jdbcType=VARCHAR}, ]]></if>
+			<if test="authentic_type != null"><![CDATA[ AUTHENTIC_TYPE = #{authentic_type, jdbcType=NUMERIC}, ]]></if>
+			<if test="certificate != null"><![CDATA[ CERTIFICATE = #{certificate, jdbcType=VARCHAR}, ]]></if>
+			<if test="status != null"><![CDATA[ STATUS = #{status, jdbcType=NUMERIC}, ]]></if>
+			<if test="login_name != null"><![CDATA[ LOGIN_NAME = #{login_name, jdbcType=VARCHAR}, ]]></if>
+			<if test="name != null"><![CDATA[ NAME = #{name, jdbcType=VARCHAR}, ]]></if>
+			<if test="sex != null"><![CDATA[ SEX = #{sex, jdbcType=VARCHAR}, ]]></if>
+			<if test="password != null"><![CDATA[ PASSWORD = #{password, jdbcType=VARCHAR}, ]]></if>
+			<if test="usertype != null"><![CDATA[ USERTYPE = #{usertype, jdbcType=NUMERIC}, ]]></if>
+			<if test="accounttype != null"><![CDATA[ ACCOUNTTYPE = #{accounttype, jdbcType=NUMERIC}, ]]></if>
+			<if test="operate_time != null"><![CDATA[ OPERATE_TIME = #{operate_time, jdbcType=NUMERIC}, ]]></if>
+			<if test="operator != null"><![CDATA[ OPERATOR = #{operator, jdbcType=VARCHAR}, ]]></if>
+			<if test="orgname != null"><![CDATA[ ORGNAME = #{orgname, jdbcType=VARCHAR}, ]]></if>
+			<if test="stuffname != null"><![CDATA[ STUFFNAME = #{stuffname, jdbcType=VARCHAR}, ]]></if>
+			<if test="sectionname != null"><![CDATA[ SECTIONNAME = #{sectionname, jdbcType=VARCHAR}, ]]></if>
+			<if test="divcode != null"><![CDATA[ DIVCODE = #{divcode, jdbcType=VARCHAR}, ]]></if>
+			<if test="operatorcode != null"><![CDATA[ OPERATORCODE = #{operatorcode, jdbcType=VARCHAR}, ]]></if>
+			<if test="orgno != null"><![CDATA[ ORGNO = #{orgno, jdbcType=VARCHAR}, ]]></if>
+			<if test="expiredate != null"><![CDATA[ EXPIREDATE = #{expiredate, jdbcType=DATE}, ]]></if>
+			<if test="position != null"><![CDATA[ POSITION = #{position, jdbcType=NUMERIC}, ]]></if>
+			<if test="setstate != null"><![CDATA[ SETSTATE = #{setstate, jdbcType=VARCHAR}, ]]></if>
+			<if test="ext3 != null"><![CDATA[ EXT3 = #{ext3, jdbcType=VARCHAR}, ]]></if>
+			<if test="ext2 != null"><![CDATA[ EXT2 = #{ext2, jdbcType=VARCHAR}, ]]></if>
+			<if test="ext1 != null"><![CDATA[ EXT1 = #{ext1, jdbcType=VARCHAR}, ]]></if>
+			<if test="orgids != null"><![CDATA[ ORGIDS = #{orgids, jdbcType=VARCHAR}, ]]></if>
+			<if test="ifprincipal != null"><![CDATA[ IFPXRINCIPAL = #{ifprincipal, jdbcType=VARCHAR}, ]]></if>
+			<if test="orgcode != null"><![CDATA[ ORGCODE = #{orgcode, jdbcType=VARCHAR}, ]]></if>
+			<if test="areacode != null"><![CDATA[ AREACODE = #{areacode, jdbcType=VARCHAR}, ]]></if>
+			<if test="pertype != null"><![CDATA[ PERTYPE = #{pertype, jdbcType=VARCHAR}, ]]></if>
+			<if test="healthcardno != null"><![CDATA[ HEALTHCARDNO = #{healthcardno, jdbcType=VARCHAR}, ]]></if>
+			<if test="ext4 != null"><![CDATA[ EXT4 = #{ext4, jdbcType=VARCHAR}, ]]></if>
+			<if test="ifsub != null"><![CDATA[ IFSUB = #{ifsub, jdbcType=VARCHAR}, ]]></if>
+			<![CDATA[ UPDATEDDATE = #{updateddate, jdbcType=DATE}, ]]>
+			<![CDATA[ WHOUPDATEID = #{whoupdateid, jdbcType=VARCHAR}, ]]>
+			<![CDATA[ REMOVED='0']]>
+		</set>
+		<![CDATA[ WHERE ID = #{id}]]>
+	</update>
+
+	<delete id="delete" parameterType="java.lang.String">
+		<![CDATA[ DELETE FROM SC_USER WHERE ID = #{id}]]>
+	</delete>
+
+	<select id="getAuthenticationUser" parameterType="string" resultMap="LoginUserResult">
+		<![CDATA[ SELECT ]]><include refid="commonColumn"></include>
+		<![CDATA[ FROM SC_USER WHERE LOGIN_NAME=#{username} AND REMOVED = '0']]>
+	</select>
+
+	<!-- CA认证，预留 -->
+	<select id="getAuthenticationCAUser" parameterType="string" resultMap="LoginUserResult">
+		<![CDATA[ SELECT ]]><include refid="commonColumn"></include>
+		<![CDATA[ FROM SC_USER WHERE EXT2=#{cano} AND STATUS=1 AND REMOVED = '0']]>
+	</select>
+</mapper>
